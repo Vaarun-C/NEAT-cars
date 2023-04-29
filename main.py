@@ -12,11 +12,15 @@ screen = pygame.display.set_mode()
 screen_width, screen_height = screen.get_size()
 pygame.display.set_caption("Car Race Game")
 
+#fonts
+generation_font = pygame.font.SysFont("Arial", 40)
+font = pygame.font.SysFont("Arial", 30)
+
 # set up the clock
 clock = pygame.time.Clock()
 
 #Stop when this fitness is reached
-max_fit = 100
+max_fit = 200
 
 # define colors
 black = (0, 0, 0, 255)
@@ -37,7 +41,7 @@ LEFT = 2
 FAIL =-1
 PI = math.pi
 no_parents = 2
-pop_size = 50
+pop_size = 100
 
 # define Sensor class
 class Sensor:
@@ -138,6 +142,7 @@ class Car:
 		self.rotate_speed = 1
 		self.max_angle = 45
 		self.checkpoints = set()
+		self.fitness = 0
 
 	def draw(self):
 		rotated_image = pygame.transform.rotate(self.image, -self.angle*180/math.pi)
@@ -227,12 +232,9 @@ class Computer(Car):
 class Track:
 	def __init__(self, image):
 		self.image = image
-		self.madeCheckpoints = False
 
 	def draw(self):
 		screen.blit(self.image, (0,0))
-		if(not self.madeCheckpoints):
-			self.makeCheckpoints()
 
 	def checkCollision(self):
 		global caravan, dead_caravan
@@ -266,6 +268,7 @@ def main():
 
 	# create track object
 	track = Track(track_img)
+	generation = 1
 	while running:
 
 		# event loop
@@ -282,21 +285,51 @@ def main():
 
 		track.checkCollision()
 
+
+		text = generation_font.render("Generation : " + str(generation), True, blue)
+		text_rect = text.get_rect()
+		text_rect.center = (screen_width/2, 100)
+		screen.blit(text, text_rect)
+
+		text = font.render("Cars : " + str(len(caravan)), True, blue)
+		text_rect = text.get_rect()
+		text_rect.center = (screen_width/2, 230)
+		screen.blit(text, text_rect)
+
+
 		if len(caravan) == 0:
 			parents = []
 			for i in range(no_parents):
 				car = max(dead_caravan, key=lambda x:x.fitness)
-				if(car.fitness == max_fit):
-					running = False
-					break
 				parents.append(car)
 				dead_caravan.remove(car)
+
+				print(f"\x1b[32mBEST CAR {parents[-1]}\x1b[0m")
+				print(f"\x1b[32mBest Score: {parents[-1].fitness}\x1b[0m")
+
 			caravan = neat.newPopulation(parents, dead_caravan+parents)
 			dead_caravan = []
+			generation += 1
 		else:
 
 			# draw cars
 			for car in caravan:
+				if(car.fitness >= max_fit):
+					running = False
+					screen.fill(white)
+					text = font.render(f"THE BEST CAR IS: {str(car.id)}", True, red)
+					text_rect = text.get_rect()
+					text_rect.center = (screen_width//2, screen_height//3)
+					screen.blit(text, text_rect)
+					car_image = pygame.transform.scale(car_image, (200, 72))
+					screen.blit(car_image, (screen_width//2-car.width, screen_height//2))
+					pygame.display.update()
+					time.sleep(5)
+					break
+				text = font.render(str(car.id), True, red)
+				text_rect = text.get_rect()
+				text_rect.center = (car.x, car.y-30)
+				screen.blit(text, text_rect)
 				car.update()    
 				car.draw()
 

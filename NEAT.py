@@ -40,6 +40,7 @@ class NEAT():
 					# entity_w_b[0][index] = random.uniform(self.mutation_range[0], self.mutation_range[1])
 					entity_w_b[0][index] = weight + add_or_sub*random.uniform(self.mutation_range[0], self.mutation_range[1])
 
+			if(random.choices([True, False], weights=[self.mutation_rate, 1-self.mutation_rate])[0]):
 				for index, biase in enumerate(entity_w_b[1]):
 					add_or_sub = random.choice([1, -1])
 					# entity_w_b[1][index] = random.uniform(self.mutation_range[0], self.mutation_range[1])
