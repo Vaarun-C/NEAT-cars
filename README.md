@@ -23,5 +23,6 @@ To get started, follow these steps:
 - Also check out this cool video where I borrowed some ideas for the car [Self-Driving Car with JavaScript](https://www.youtube.com/watch?v=Rs_rAxEsAvI&t=6s)
 
 ## Author
-Varun C
+[Varun](https://github.com/Vaarun-C)
+
 Have fun :)
