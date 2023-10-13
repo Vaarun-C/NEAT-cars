@@ -22,7 +22,8 @@ class NEAT():
 		index = 0
 		randomIndex = 0
 		while(None in new_one):
-			randomIndex = random.randint(0, len(old_one[0])-1)
+			old_one=input
+			rand_gen(
 			if(new_one[randomIndex] == None):
 				new[randomIndex] = old_one[index%len(old_one)][randomIndex]
 				index += 1
@@ -73,3 +74,7 @@ class NEAT():
 #=====name condition=====
 if __name__ == '__main__':
 	n = NEAT()
+
+#=====random number generator function=====
+def rando_gen(old_one):
+	randomIndex = random.randint(0, len(old_one[0])-1)
