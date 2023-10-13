@@ -17,6 +17,7 @@ To get started, follow these steps:
 1. Clone this repository to your local machine.
 2. Create a virtual environment (optional but recommended).
 3. Install the required packages using pip.
+4. Run main.py
 
 ## Acknowledgements
 - Credits to [The Coding Train](https://www.youtube.com/@TheCodingTrain) for the inspiration. Nice Video Series on the topic: [Introduction to Neuroevolution](https://www.youtube.com/watch?v=lu5ul7z4icQ)
