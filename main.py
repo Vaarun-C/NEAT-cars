@@ -14,6 +14,7 @@ pygame.display.set_caption("Car Race Game")
 
 ################### Add user defined path ##########################
 ########## Keep drawing until mouse button is clicked ##############
+prev_x = prev_y = None
 screen.fill((255,255,255,255))
 drawing = drawing_end = False
 while (drawing_end == False):
@@ -22,7 +23,13 @@ while (drawing_end == False):
 		if (pygame.mouse.get_pressed()[0]):
 			#while (drawing == False):
 			px, py  = pygame.mouse.get_pos()
-			pygame.draw.rect(screen, (0, 0, 0, 255), (px - 35, py - 35, 70, 70))
+			pygame.draw.ellipse(screen, (0, 0, 0, 255), (px - 35, py - 35, 70, 70))
+			if (prev_x != None and prev_x - px != 0):
+				x_new = (px + prev_x) / 2
+				y_new = py + (x_new - px) * (prev_y - py) / (prev_x - px)
+				pygame.draw.ellipse(screen, (0, 0, 0, 255), (x_new - 35, y_new - 35, 70 + abs(prev_x - px), 70 + abs(prev_y - py)))
+			prev_x = px
+			prev_y = py
 			drawing = True
 
 		if (not pygame.mouse.get_pressed()[0]):
