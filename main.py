@@ -163,6 +163,8 @@ class Player(Car):
 	def __init__(self, x, y, image):
 		Car.__init__(self, x, y, image)
 		self.speed = 0
+		self.fitness = 0
+		self.id = 0
 	
 	def update(self):
 		# update car position
@@ -264,7 +266,7 @@ def main():
 	# Init my cars
 	for i in range(pop_size):
 		caravan.append(Computer(90,screen_height/2,car_image))
-	# caravan.append(Player(90, screen_height/2, car_image))
+	caravan.append(Player(90, screen_height/2, car_image))
 
 	# create track object
 	track = Track(track_img)
