@@ -163,7 +163,6 @@ class Player(Car):
 	def __init__(self, x, y, image):
 		Car.__init__(self, x, y, image)
 		self.speed = 0
-		self.fitness = 0
 		self.id = 0
 	
 	def update(self):
@@ -268,6 +267,7 @@ def main():
 		caravan.append(Computer(90,screen_height/2,car_image))
 	caravan.append(Player(90, screen_height/2, car_image))
 
+
 	# create track object
 	track = Track(track_img)
 	generation = 1
@@ -316,18 +316,19 @@ def main():
 
 			# draw cars
 			for car in caravan:
-				if(car.fitness >= max_fit):
-					running = False
-					screen.fill(white)
-					text = font.render(f"THE BEST CAR IS: {str(car.id)}", True, red)
-					text_rect = text.get_rect()
-					text_rect.center = (screen_width//2, screen_height//3)
-					screen.blit(text, text_rect)
-					car_image = pygame.transform.scale(car_image, (200, 72))
-					screen.blit(car_image, (screen_width//2-car.width, screen_height//2))
-					pygame.display.update()
-					time.sleep(5)
-					break
+				if(type(car) == "<class '__main__.Player'"):
+					if(car.fitness >= max_fit):
+						running = False
+						screen.fill(white)
+						text = font.render(f"THE BEST CAR IS: {str(car.id)}", True, red)
+						text_rect = text.get_rect()
+						text_rect.center = (screen_width//2, screen_height//3)
+						screen.blit(text, text_rect)
+						car_image = pygame.transform.scale(car_image, (200, 72))
+						screen.blit(car_image, (screen_width//2-car.width, screen_height//2))
+						pygame.display.update()
+						time.sleep(5)
+						break
 				text = font.render(str(car.id), True, red)
 				text_rect = text.get_rect()
 				text_rect.center = (car.x, car.y-30)
