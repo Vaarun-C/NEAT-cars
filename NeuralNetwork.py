@@ -1,6 +1,8 @@
+#=====Library Imports====
 import random
 import math
 
+#=====
 class Layer():
 	def __init__(self, inputCount, outputCount):
 		self.inputCount = inputCount
@@ -9,7 +11,6 @@ class Layer():
 		self.outputs = [0]*self.outputCount
 		self.biases = [0]*self.outputCount
 		self.weights = [[0]*self.outputCount for _ in range(self.inputCount)]
-
 		self.randomize()
 
 	def randomize(self):
