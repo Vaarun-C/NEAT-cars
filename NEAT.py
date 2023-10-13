@@ -1,6 +1,20 @@
 # Import the random library for generating random numbers
 import random
 
+# Function to configure mutation rate
+def configure_mutation_rate():
+    return int(input("Please configure the Mutation Rate: ")
+
+# Function to initialize mutation range
+def initialize_mutation_range():
+    start_mutation_range = int(input("Enter start of mutation range: "))
+    stop_mutation_range = int(input("Enter stop of mutation range: "))
+    return [start_mutation_range, stop_mutation_range]
+
+# Function to generate a random index
+def generate_random_index(length):
+    return random.randint(0, length - 1)
+
 # Define a NEAT class
 class NEAT:
     def __init__(self):
@@ -8,7 +22,7 @@ class NEAT:
         self.mutation_rate = 1
         
         # Prompt the user to configure the mutation rate
-        self.mutation_rate = int(input("Please configure the Mutation Rate:"))
+        self.mutation_rate = configure_mutation_rate()
         
         # Initialize lists to store populations and parents
         self.total_population = []
@@ -16,11 +30,7 @@ class NEAT:
         self.dead_caravan = []
 
         # Initialize mutation range with user-defined start and stop values
-        self.mutation_range = []
-        start_mutation_range = int(input("Enter start of mutation range:"))
-        stop_mutation_range = int(input("Enter stop of mutation range:"))
-        self.mutation_range.append(start_mutation_range)
-        self.mutation_range.append(stop_mutation_range)
+        self.mutation_range = initialize_mutation_range()
 
     # Helper function for crossover
     def crossover_helper(self, new_one, old_one):
@@ -82,6 +92,3 @@ class NEAT:
 if __name__ == '__main__':
     n = NEAT()
 
-# Function to generate a random index
-def rando_gen(old_one):
-    randomIndex = random.randint(0, len(old_one[0]) - 1)
