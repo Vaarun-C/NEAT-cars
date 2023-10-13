@@ -234,9 +234,11 @@ class Track:
 		self.image = image
 
 	def draw(self):
-		#for i in pygame.event.get():
-		#	if i.type == pygame.MOUSEBUTTON:
-		screen.blit(self.image, (0,0))
+		mouse_press = pygame.mouse.get_pressed()
+		if mouse_press[0]:
+			px, py = pygame.mouse.get_pos()
+			print(px, py)
+		#screen.blit(self.image, (0,0))
 
 	def checkCollision(self):
 		global caravan, dead_caravan
