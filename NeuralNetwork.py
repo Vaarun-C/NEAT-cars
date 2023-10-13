@@ -2,8 +2,9 @@
 import random
 import math
 
-#=====
+#=====class creation=====
 class Layer():
+	#=====initialising all class variables
 	def __init__(self, inputCount, outputCount):
 		self.inputCount = inputCount
 		self.outputCount = outputCount
@@ -13,6 +14,7 @@ class Layer():
 		self.weights = [[0]*self.outputCount for _ in range(self.inputCount)]
 		self.randomize()
 
+	#=====randomize=====
 	def randomize(self):
 
 		for i in range(self.inputCount):
@@ -22,6 +24,7 @@ class Layer():
 		for i in range(self.outputCount):
 			self.biases[i] = random.uniform(-1, 1)
 
+	#=====feed forward=====
 	def feedForward(self, givenInputs):
 		for i in range(self.inputCount):
 			self.inputs[i] = givenInputs[i]
@@ -34,24 +37,30 @@ class Layer():
 
 		return self.outputs
 
+	#=====set weights=====
 	def setWeights(self, newweights):
 		for i in range(self.inputCount):
 			for j in range(self.outputCount):
 				self.weights[i][j] = newweights[i*self.outputCount+j]
 
+	#=====set biases=====
 	def setBiases(self, newbiases):
 		for i in range(self.outputCount):
 			self.biases[i] = newbiases[i]
 
+	#=====returns the printable representation of the specified object as string=====
 	def __repr__(self) -> str:
 		return f"Layer({self.inputCount},{self.outputCount})"
-
+#=====class creation=====
 class NN:
+
+	#======initialising class variables=====
 	def __init__(self, neurons):
 		self.layers = []
 		for i in range(len(neurons)-1):
 			self.layers.append(Layer(neurons[i], neurons[i+1]))
 
+	#=====feed forward=====
 	def feedForward(self, network, givenInputs):
 
 		mean = sum(givenInputs)/len(givenInputs)
@@ -72,6 +81,7 @@ class NN:
 
 		return outputs
 
+	#=====get weights and biases=====
 	def getWeightsAndBiases(self):
 		weight_array = []
 		biase_array = [biases for biasesrow in [layer.biases for layer in self.layers] for biases in biasesrow]
@@ -81,6 +91,7 @@ class NN:
 
 		return (weight_array, biase_array)
 
+	#=====set weights and biases=====
 	def setWeightsAndBiases(self, weights_and_biases):
 		index = 0
 		for layer in self.layers:
