@@ -1,5 +1,7 @@
+#=====Library Import=====
 import random
 
+#=====class creation=====
 class NEAT():
 	def __init__(self):
 		self.mutation_rate = 0.05
