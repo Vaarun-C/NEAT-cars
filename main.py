@@ -19,11 +19,17 @@ drawing = drawing_end = False
 while (drawing_end == False):
 	for i in pygame.event.get():
 		#if i.type == pygame.MOUSEBUTTONDOWN:
-		px, py  = pygame.mouse.get_pos()
-		pygame.draw.rect(screen, (0, 0, 0, 255), (px - 25, py - 25, 50, 50))
+		if (pygame.mouse.get_pressed()[0]):
+			#while (drawing == False):
+			px, py  = pygame.mouse.get_pos()
+			pygame.draw.rect(screen, (0, 0, 0, 255), (px - 35, py - 35, 70, 70))
+			drawing = True
 
-		if i.type == pygame.MOUSEBUTTONDOWN:
-			drawing_end = True
+		if (not pygame.mouse.get_pressed()[0]):
+			if (drawing == False):
+				pass
+			else:
+				drawing_end = True
 		pygame.display.flip()
 
 pygame.image.save(screen, "Track_new.png")
