@@ -302,38 +302,38 @@ def main():
 		if len(caravan) == 0:
 			parents = []
 			for i in range(no_parents):
-				car = max(dead_caravan, key=lambda x:x.fitness)
+				if(isinstance(dead_caravan, Computer)):
+					car = max(dead_caravan, key=lambda x:x.fitness)
+					dead_caravan.remove(car)
 				parents.append(car)
-				dead_caravan.remove(car)
 
 				print(f"\x1b[32mBEST CAR {parents[-1]}\x1b[0m")
 				print(f"\x1b[32mBest Score: {parents[-1].fitness}\x1b[0m")
-
-			caravan = neat.newPopulation(parents, dead_caravan+parents)
-			dead_caravan = []
+			if(isinstance(dead_caravan, Computer)):
+				caravan = neat.newPopulation(parents, dead_caravan+parents)
+				dead_caravan = []
 			generation += 1
 		else:
 
 			# draw cars
 			for car in caravan:
-				if(type(car) == "<class '__main__.Player'"):
-					if(car.fitness >= max_fit):
-						running = False
-						screen.fill(white)
-						text = font.render(f"THE BEST CAR IS: {str(car.id)}", True, red)
-						text_rect = text.get_rect()
-						text_rect.center = (screen_width//2, screen_height//3)
-						screen.blit(text, text_rect)
-						car_image = pygame.transform.scale(car_image, (200, 72))
-						screen.blit(car_image, (screen_width//2-car.width, screen_height//2))
-						pygame.display.update()
-						time.sleep(5)
-						break
+				if(isinstance(car, Computer) and car.fitness >= max_fit):
+					running = False
+					screen.fill(white)
+					text = font.render(f"THE BEST CAR IS: {str(car.id)}", True, red)
+					text_rect = text.get_rect()
+					text_rect.center = (screen_width//2, screen_height//3)
+					screen.blit(text, text_rect)
+					car_image = pygame.transform.scale(car_image, (200, 72))
+					screen.blit(car_image, (screen_width//2-car.width, screen_height//2))
+					pygame.display.update()
+					time.sleep(5)
+					break
 				text = font.render(str(car.id), True, red)
 				text_rect = text.get_rect()
 				text_rect.center = (car.x, car.y-30)
 				screen.blit(text, text_rect)
-				car.update()    
+				car.update()
 				car.draw()
 
 		# update display
