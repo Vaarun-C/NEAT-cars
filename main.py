@@ -12,6 +12,23 @@ screen = pygame.display.set_mode()
 screen_width, screen_height = screen.get_size()
 pygame.display.set_caption("Car Race Game")
 
+################### Add user defined path ##########################
+########## Keep drawing until mouse button is clicked ##############
+screen.fill((255,255,255,255))
+drawing = drawing_end = False
+while (drawing_end == False):
+	for i in pygame.event.get():
+		#if i.type == pygame.MOUSEBUTTONDOWN:
+		px, py  = pygame.mouse.get_pos()
+		pygame.draw.rect(screen, (0, 0, 0, 255), (px - 25, py - 25, 50, 50))
+
+		if i.type == pygame.MOUSEBUTTONDOWN:
+			drawing_end = True
+		pygame.display.flip()
+
+pygame.image.save(screen, "Track_new.png")
+screen.fill((255, 255, 255))
+
 #fonts
 generation_font = pygame.font.SysFont("Arial", 40)
 font = pygame.font.SysFont("Arial", 30)
@@ -234,11 +251,7 @@ class Track:
 		self.image = image
 
 	def draw(self):
-		mouse_press = pygame.mouse.get_pressed()
-		if mouse_press[0]:
-			px, py = pygame.mouse.get_pos()
-			print(px, py)
-		#screen.blit(self.image, (0,0))
+		screen.blit(self.image, (0,0))
 
 	def checkCollision(self):
 		global caravan, dead_caravan
@@ -253,7 +266,6 @@ class Track:
 
 #Main Loop
 def main():
-
 	global caravan, running, dead_caravan
 
 	neat = NEAT()
@@ -262,7 +274,7 @@ def main():
 
 	car_image = pygame.image.load("car.png")
 	car_image = pygame.transform.scale(car_image, (83, 30))
-	track_img = pygame.image.load(track_img_path)
+	track_img = pygame.image.load("Track_new.png")
 	track_img = pygame.transform.scale(track_img, (screen_width, screen_height))
 
 	# Init my cars
