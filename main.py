@@ -163,6 +163,7 @@ class Player(Car):
 	def __init__(self, x, y, image):
 		Car.__init__(self, x, y, image)
 		self.speed = 0
+		self.fitness = 0
 		self.id = 0
 	
 	def update(self):
@@ -302,22 +303,21 @@ def main():
 		if len(caravan) == 0:
 			parents = []
 			for i in range(no_parents):
-				if(isinstance(dead_caravan, Computer)):
-					car = max(dead_caravan, key=lambda x:x.fitness)
-					dead_caravan.remove(car)
+				car = max(dead_caravan, key=lambda x:x.fitness)
 				parents.append(car)
+				dead_caravan.remove(car)
 
 				print(f"\x1b[32mBEST CAR {parents[-1]}\x1b[0m")
 				print(f"\x1b[32mBest Score: {parents[-1].fitness}\x1b[0m")
-			if(isinstance(dead_caravan, Computer)):
-				caravan = neat.newPopulation(parents, dead_caravan+parents)
-				dead_caravan = []
+				
+			caravan = neat.newPopulation(parents, dead_caravan+parents)
+			dead_caravan = []
 			generation += 1
 		else:
 
 			# draw cars
 			for car in caravan:
-				if(isinstance(car, Computer) and car.fitness >= max_fit):
+				if(car.fitness >= max_fit):
 					running = False
 					screen.fill(white)
 					text = font.render(f"THE BEST CAR IS: {str(car.id)}", True, red)
