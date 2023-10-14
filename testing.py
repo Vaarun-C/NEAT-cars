@@ -1,6 +1,8 @@
+#Library Imports
 import math
 import time
 
+#matrix creation
 matrix = [	[0, 0, 0, 0, 0, 0, 0, 0, 0],
 			[0, 1, 1, 1, 1, 1, 1, 1, 0],
 			[0, 1, 1, 1, 1, 1, 1, 1, 0],
@@ -13,18 +15,22 @@ matrix = [	[0, 0, 0, 0, 0, 0, 0, 0, 0],
 		]
 size = len(matrix)
 
+
 for r in matrix:
 	print(r)
 
+#neighbours
 def neighbours(x,y,image):
 	img = image
 	x_1, y_1, x1, y1 = x-1, y-1, x+1, y+1
 	return [ img[x_1][y], img[x_1][y1], img[x][y1], img[x1][y1], img[x1][y], img[x1][y_1], img[x][y_1], img[x_1][y_1] ]
 
+#transitions
 def transitions(neighbours):
 	n = neighbours + neighbours[0:1]
 	return sum( (n1, n2) == (0, 1) for n1, n2 in zip(n, n[1:]) )
 
+#zhang suen
 def zhangSuen(image):
 	changing1 = changing2 = 1
 	while changing1 or changing2:
@@ -51,6 +57,7 @@ def zhangSuen(image):
 		for x, y in changing2: 
 			matrix[x][y] = 0
 
+#zhang suen
 zhangSuen(matrix)
 print("*"*100)
 for r in matrix:

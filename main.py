@@ -1,3 +1,4 @@
+#Library Imports
 import math
 import pygame
 import time
@@ -367,6 +368,6 @@ def main():
 
 		# set frame rate    
 		clock.tick(60)			
-
+# name condition
 if __name__ == '__main__':
 	main()
