@@ -3,7 +3,7 @@ import math
 import pygame
 import time
 from NeuralNetwork import NN
-from NEAT import NEAT 
+from NEAT import NEAT
 
 # initialize pygame
 pygame.init()
@@ -297,7 +297,6 @@ def main():
 	for i in range(pop_size):
 		caravan.append(Computer(90,screen_height/2,car_image))
 	caravan.append(Player(90, screen_height/2, car_image))
-
 
 	# create track object
 	track = Track(track_img)

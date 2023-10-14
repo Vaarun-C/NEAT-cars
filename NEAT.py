@@ -3,7 +3,7 @@ import random
 
 # Function to configure mutation rate
 def configure_mutation_rate():
-    return int(input("Please configure the Mutation Rate: ")
+    return int(input("Please configure the Mutation Rate: "))
 
 # Function to initialize mutation range
 def initialize_mutation_range():
