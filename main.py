@@ -194,6 +194,8 @@ class Player(Car):
 	def __init__(self, x, y, image):
 		Car.__init__(self, x, y, image)
 		self.speed = 0
+		self.fitness = 0
+		self.id = 0
 	
 	def update(self):
 		# update car position
@@ -294,7 +296,8 @@ def main():
 	# Init my cars
 	for i in range(pop_size):
 		caravan.append(Computer(90,screen_height/2,car_image))
-	# caravan.append(Player(90, screen_height/2, car_image))
+	caravan.append(Player(90, screen_height/2, car_image))
+
 
 	# create track object
 	track = Track(track_img)
@@ -336,7 +339,7 @@ def main():
 
 				print(f"\x1b[32mBEST CAR {parents[-1]}\x1b[0m")
 				print(f"\x1b[32mBest Score: {parents[-1].fitness}\x1b[0m")
-
+				
 			caravan = neat.newPopulation(parents, dead_caravan+parents)
 			dead_caravan = []
 			generation += 1
@@ -360,7 +363,7 @@ def main():
 				text_rect = text.get_rect()
 				text_rect.center = (car.x, car.y-30)
 				screen.blit(text, text_rect)
-				car.update()    
+				car.update()
 				car.draw()
 
 		# update display
